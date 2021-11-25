@@ -51,15 +51,6 @@
 @endif
 
 
-{{--<div class="max-w-6xl mx-auto sm:px-6 lg:px-8">--}}
-{{--    <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">--}}
-
-{{--    </div>--}}
-{{--    <h1>Welcome Page</h1>--}}
-{{--    <a href="{{url('/student')}}">Employees</a> |--}}
-{{--    <a href="{{url('/payment')}}">Payment</a>|--}}
-{{--    <a href="{{url('/helper')}}">Categories</a> |--}}
-{{--    <a href="{{route('dashboard')}}">Contact</a>--}}
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 {{--    <nav class="navbar navbar-dark bg-dark">--}}
@@ -72,11 +63,12 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-{{--                <li class="nav-item active">--}}
-{{--                    <a class="nav-link" href="{{url('/student')}}">Students <span class="sr-only">(current)</span></a>--}}
-{{--                </li>--}}
+
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/payment')}}">Payment <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/category')}}">Category<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,7 +76,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{url('/categories')}}">Categories</a>
-                        <a class="dropdown-item" href="{{route('dashboard')}}">Contact</a>
+{{--                        <a class="dropdown-item" href="{{route('/dashboard')}}">Contact</a>--}}
                         <div class="dropdown-divider"></div>
 {{--                        <a class="dropdown-item" href="#">Something else here</a>--}}
                     </div>
@@ -96,10 +88,9 @@
 
             </ul>
             <form class="form-inline my-2 my-lg-0">
-{{--                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">--}}
-{{--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--}}
-                <button class="text-white bg-dark"><a href="{{url('/')}}">Home  | </a></button>
-                <button class="text-white bg-dark"><a href="{{url('/student')}}">My Students</a></button>
+                <button class="text-white bg-dark"><a href="{{url('/dashboard')}}">Employeee Information | </a></button>
+                <button class="text-white bg-dark"><a href="{{url('/student')}}">My Students  |</a></button>
+                <button class="text-white bg-dark"><a href="{{url('/')}}">logOut</a></button>
 
 
 
@@ -117,298 +108,248 @@
 </style>
 
 
-{{--    <div id="page-content" style="margin-top: 20px;margin-left: 20px">--}}
-{{--        <section class="content-header" style="margin-right: 1%;height: 50px">--}}
-{{--            <div class="container-fluid">--}}
-{{--                <div class="row mb-2">--}}
-{{--                    <div class="col-sm-6">--}}
-                        <h1 style="font-size: 30px;font-weight: bolder;margin-left: -8px" class="p-3  bg-secondary text-white">My Students</h1>
-<body>
+<section style = "padding-top: 60px;">
+    <div class ="container">
+        <div class="row"></div>
+        <div class = "col-md-12">
+            <div class="card">
+                <div class = "card-header">
+                    <img src="https://img.icons8.com/external-vitaliy-gorbachev-flat-vitaly-gorbachev/50/000000/external-student-female-profession-vitaliy-gorbachev-flat-vitaly-gorbachev.png"/>
+                    <a href ="#" class="btn btn-success add_employee">Add Student</a>
+                </div>
+                <div class="card-body">
+                    <table id = "studentTable" class="table">
+                        <thread>
+                            <tr>
+                                <th>Serial</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Transfer Amount</th>
+                                <th>Created Account</th>
+                                <th>Total</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                        </thread>
+                        <tbody>
+                        @php($i = 1)
 
 
 
-{{--                    </div>--}}
-{{--                    <div class="col-sm-6">--}}
 
+                        @foreach($welcome as $student)
+                            <tr id="sid{{$student->id}}">
+                                <th scope="row">{{$i++}}</th>
+                                {{--                        @foreach($students as $student)--}}
 
-{{--                    </div>--}}
+                                <td>{{$student->firstname}}</td>
+                                <td>{{$student->lastname}}</td>
+                                <td>{{$student->email}}</td>
+                                <td>{{$student->phone}}</td>
+                                <td>{{$student->Transitionamount}}</td>
 
-{{--        </section>--}}
+                                <td>{{$student->created_at->diffForHumans()}}</td>
 
+                                <div style="display: none">
+                                    {{ $total = 0 }}
+                                    {{$total = $student->sum('Transitionamount')}}
+                                    {{--                                    {{$total += $student->Transitionamount}}--}}
+                                </div>
 
+                                <td>{{$total}}</td>
+                                <td>
+                                    {{--                                        <a href ="#"class="btn btn-info" data-toggle="modal" data-target="#studentEditModal">Edit</a>--}}
+                                    <a href ="#" onclick="editStudent({{$student->id}})" class="btn"><i class="fa fa-edit" style="font-size:30px;color:blue;"></i></a>
+                                </td>
+                                <td>
+                                    <a onclick="deleteStudent({{$student->id}})" class="btn"><i class="fa fa-trash" style="font-size:30px;color:red;"></i></a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
 
-                    @csrf
-                    <!-- general form elements -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Add Modal -->
 <div class="modal fade" id="studentModal" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" >
         <div class="modal-content">
             <div class="modal-header">
-        <p class="p-3 mb-2 bg-success text-white">Enter Personal Information</p>
-{{--                        <div class="card card-danger mb-0">--}}
-{{--                            <div class="card-header">--}}
-{{--                                <h3 class="card-title">Enter Personal Information</h3>--}}
-                            </div>
-                            <!-- /.card-header -->
-{{--                             form start--}}
-
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="student_id">Student ID * </label>
-                                            <input type="text" class="form-control" id="student_id" name="student_id" placeholder="Enter Student ID" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="name"> Name *</label>
-                                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Student Name" required="">
-                                        </div>
-                                    </div>
-
-{{--                                    <div class="col-sm-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="name_bn">Bangla Name</label>--}}
-{{--                                            <input type="text" class="form-control" id="name_bn" name="name_bn" placeholder="Enter Student Bangla Name">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="mobile_number">Mobile Number *</label>
-                                            <input type="text" class="form-control" id="mobile_number" name="mobile_number" placeholder="Enter Mobile Number" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="email_address">Email Address </label>
-                                            <input type="text" class="form-control" id="email_address" name="email_address" placeholder="Enter Email Address">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="date_of_birth">Date of Birth</label>
-                                            <input type="text" class="form-control datepicker"  name="date_of_birth" placeholder="Enter Date of Birth"    id="datepicker" width="150" readonly='true'>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-
-                                            <label for="blood_group"> Blood Group </label>
-                                            <select class="form-control select2" name="blood_group" id="blood_group">
-                                                <option value="">Select Blood Group</option>
-{{--<!--                                                --><?php--}}
-{{--//                                                foreach ($blood_groups as $key => $value) {--}}
-{{--//                                                    echo "<option value='$value'>$value</option>";--}}
-{{--//                                                }--}}
-{{--                                                ?>--}}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="gender"> Gender *</label>
-                                            <select class="form-control select2" name="gender" id="gender" required="">
-                                                <option value="">Select Gender</option>
-{{--<!--                            --}}
-{{--//                                                foreach ($gender as $key => $value) {--}}
-{{--//                                                    echo "<option value='$value'>$value</option>";--}}
-{{--//                                                }--}}
-{{--//                                                ?>--}}
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="father_name">Father Name *</label>
-                                            <input type="text" class="form-control" id="father_name" name="father_name" placeholder="Enter Father Name" required="">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="mother_name">Mother Name *</label>
-                                            <input type="text" class="form-control" id="mother_name" name="mother_name" placeholder="Enter Mother Name" required="">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="father_nid">Father NID</label>
-                                            <input type="text" class="form-control" id="father_nid" name="father_nid" placeholder="Enter Father NID">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="mother_nid">Mother NID</label>
-                                            <input type="text" class="form-control" id="mother_nid" name="mother_nid" placeholder="Enter Mother NID">
-                                        </div>
-                                    </div>
-
-{{--                                    <div class="col-sm-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="guardian_name">Guardian Name</label>--}}
-{{--                                            <input type="text" class="form-control" id="guardian_name" name="guardian_name" placeholder="Enter Guardian Name">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="col-sm-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="guardian_contact_no">Guardian Contact No</label>--}}
-{{--                                            <input type="text" class="form-control" id="guardian_contact_no" name="guardian_contact_no" placeholder="Enter Guardian Contact No">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                    <div class="col-sm-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="relation_with_student">Relation with Student</label>--}}
-{{--                                            <input type="text" class="form-control" id="relation_with_student" name="relation_with_student" placeholder="Enter relation with student">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-                                </div>
-
-
-
-
-
- <p class="p-3 mb-2 bg-info text-white">Contact Information</p>
-{{--                        <div class="card card-danger mb-0">--}}
-{{--                            <div class="card-header">--}}
-                                <h3 class="card-title"></h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <!-- form start -->
-
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="present_division_id"> Present Division *</label>
-                                            <select class="form-control select2" name="present_division_id" id="present_division_id" required="">
-                                                <option value="0">Select Division</option>
-<!--                                                --><?php
-//                                                foreach ($divisions as $key => $value) {
-//                                                    echo "<option value='$value[id]'>$value[division_name]</option>";
-//                                                }
-//                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="present_district_id"> Present District *</label>
-                                            <select class="form-control select2" name="present_district_id" id="present_district_id" required="">
-                                                <option value="0">Select District</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="present_post_id"> Present Post *</label>
-                                            <select class="form-control select2" name="present_post_id" id="present_post_id" required="">
-                                                <option value="0">Select Post</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="present_address"> Present Address</label>
-                                            <input type="text" class="form-control" id="present_address" name="present_address" placeholder="Enter present address">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="permanent_division_id"> Division *</label>
-                                            <select class="form-control select2" name="permanent_division_id" id="permanent_division_id" required="">
-                                                <option value="0">Select Division</option>
-<!--                                                --><?php
-//                                                foreach ($divisions as $key => $value) {
-//                                                    echo "<option value='$value[id]'>$value[division_name]</option>";
-//                                                }
-//                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-
-{{--                                    <div class="col-sm-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="permanent_district_id"> Permanent District*</label>--}}
-{{--                                            <select class="form-control select2" name="permanent_district_id" id="permanent_district_id" required="">--}}
-{{--                                                <option value="0">Select District</option>--}}
-{{--                                            </select>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label for="permanent_post_id"> Permanent Post *</label>
-                                            <select class="form-control select2" name="permanent_post_id" id="permanent_post_id" required="">
-                                                <option value="0">Select Post</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-{{--                                    <div class="col-sm-4">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                            <label for="permanent_address"> Permanent Address</label>--}}
-{{--                                            <input type="text" class="form-control" id="permanent_address" name="permanent_address" placeholder="Enter permanent address">--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-
-{{--                                </div>--}}
-
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-<style>
-    .center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 22px;
-
-    }
-</style>
-
-                        <div class="card-footer">
-                            <div class="center">
-
-                                <button type="submit" class="p-3 mb-2 bg-info text-white">Submit</button>
-
-
-                        </div>
-                    </form>
-
-                </div>
-
+                <h5 class="modal-title" id="exampleModalLabel">Records</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-body">
+                <form id = "studentForm" method="POST" action="{{route('welcome.add')}}" >
+                    @csrf
+                    <div class="form-group firstname">
+                        <label for="firstname">First Name</label>
+                        <input type="hidden" id="eid" name="id" value="">
+                        <input type="text" class="form-control" id="firstname" name="firstname" value="" />
+                    </div>
+                    <div class="form-group lastname">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" class="form-control" id="lastname" name="lastname" value="" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="text" class="form-control" id="phone"  name="phone" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Transitionamount">Transition Amount</label>
+                        <input type="text" class="form-control" id="Transitionamount"  name="Transitionamount" />
+                    </div>
+
+                    {{--                    <div class="form-group">--}}
+                    {{--                        <label for="Division">Division</label>--}}
+                    {{--                        <input type="text" class="form-control" id="division"  name="" />--}}
+                    {{--                    </div>--}}
+
+
+                    <button type ="submit" class="btn btn-primary submit_btn" id="submit">Submit</button>
+                </form>
+            </div>
+
         </div>
-
-
-
+    </div>
 </div>
-<script>
-    $('#datepicker').datepicker({
-        uiLibrary: 'bootstrap4'
-    });
+</div>
+<!--Edit Modal -->
+
+
+
+<script type="text/javascript">
+    $('.add_employee').on('click',function(){
+        $('.modal-title').text('Add Students');
+        $('.submit_btn').text('Save');
+        $(".firstname").css("display", "block");
+        $(".lastname").css("display", "block");
+        $("#eid").val('');
+        $("#firstname").val('');
+        $("#lastname").val('');
+        $("#email").val('');
+        $("#phone").val('');
+        $("#Transitionamount").val('');
+        $("#studentModal").modal('show');
+    })
+
+    // function editStudent(id) {
+    //     $('.modal-title').text('Update Students');
+    //     $('.submit_btn').text('Update');
+    //     $(".firstname").css("display", "none");
+    //     $(".lastname").css("display", "none");
+    //     $.get('/student/' + id, function (student) {
+    //         $("#eid").val(student.id);
+    //         $("#firstname").val(student.firstname);
+    //         $("#lastname").val(student.lastname);
+    //         $("#email").val(student.email);
+    //         $("#phone").val(student.phone);
+    //         $("#Transitionamount").val(student.Transitionamount);
+    //         $("#studentModal").modal('show');
+    //     });
+    // }
+    {{--$("#studentEditForm").submit(function (e){--}}
+    {{--    e.preventDefault();--}}
+    {{--    let id = $("#id").val();--}}
+    {{--    let firstname = $("#firstname2").val();--}}
+    {{--        let lastname = $("#lastname2").val();--}}
+    {{--        let email = $("#email2").val();--}}
+    {{--        let phone = $("#phone2").val();--}}
+    {{--        $.ajax({--}}
+    {{--            url:"{{route('student.update')}}",--}}
+    {{--            type:"PUT",--}}
+    {{--            data:{--}}
+    {{--                id:id,--}}
+    {{--                lastname: lastname,--}}
+    {{--                    phone: phone,--}}
+    {{--                    firstname: firstname,--}}
+    {{--                    email: email,--}}
+    {{--                Transitionamount:Transitionamount--}}
+    {{--            },--}}
+    {{--            success:function(response){--}}
+    {{--           alert(student.id);--}}
+    {{--                $('#sid'+response.id+'td:nth-child(1)').text(response.firstname);--}}
+    {{--                $('#sid'+response.id+'td:nth-child(2)').text(response.lastname);--}}
+    {{--                $('#sid'+response.id+'td:nth-child(3)').text(response.email);--}}
+    {{--                $('#sid'+response.id+'td:nth-child(4)').text(response.phone);--}}
+    {{--                $("#studentEditModal").modal('show');--}}
+    {{--                $("#studentEditModal")[0].reset();--}}
+    {{--            }--}}
+    {{--        });--}}
+    {{--});--}}
 </script>
-@include('commonFolder.page-script')
+
+
+{{--<script>--}}
+
+{{--    $("#submit").click(function(){--}}
+
+{{--        let firstname = $("#firstname").val();--}}
+{{--        let lastname = $("#lastname").val();--}}
+{{--        let email = $("#email").val();--}}
+{{--        let phone = $("#phone").val();--}}
+{{--// alert(firstname);--}}
+
+{{--        $.ajax({--}}
+{{--            url: "{{route('student.add')}}",--}}
+{{--            type:"POST",--}}
+{{--            data:{--}}
+
+{{--                lastname: lastname,--}}
+{{--                phone: phone,--}}
+{{--                firstname: firstname,--}}
+{{--                email: email,--}}
+{{--            },--}}
+
+{{--            success: function(response){--}}
+
+{{--                if(response){--}}
+{{--                    $("#studentTable tbody").prepend('<tr><td>'+response.firstname +'</td><td>'+response.lastname +'</td><td>'+response.email +'</td><td>'+response.phone +'</td></tr>');--}}
+{{--                    $("#studentForm")[0].reset();--}}
+{{--                    $("studentModal").modal('hide');--}}
+{{--                }--}}
+{{--            }--}}
+
+
+{{--        });--}}
+
+{{--    });--}}
+
+
+
+</script>
+
+{{--<script>--}}
+{{--    function deleteStudent(id){--}}
+{{--        if(confirm('Do you want to delete?')){--}}
+{{--            $.ajax({--}}
+{{--                url: '/student-delete/'+id,--}}
+{{--                type:'DELETE',--}}
+{{--                data:{id: id},--}}
+{{--                headers: {--}}
+{{--                    'X-CSRF-Token': $('meta[name=csrf-token]').attr('content')--}}
+{{--                },--}}
+{{--                success:function (response){--}}
+{{--                    $("#sid"+id).remove();--}}
+{{--                }--}}
+{{--            });--}}
+{{--        }--}}
+{{--    }--}}
+</script>
 </body>
-
-
-
 </html>

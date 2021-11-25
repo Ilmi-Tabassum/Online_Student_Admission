@@ -1,3 +1,7 @@
+
+@extends('layouts.master')
+@section('content')
+    <div class="py-12">
 <h1>Update Member</h1>
 <form action = "/update" method="POST">
     @csrf
@@ -14,3 +18,4 @@
 
 
 </form>
+@endsection

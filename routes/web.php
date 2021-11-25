@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\SslCommerzPaymentController;
-use App\Http\Controllers\TestCrudController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\welcomeController;
 use App\Models\User;
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +17,17 @@ use App\Models\User;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[welcomeController::class,'record'])->name('welcome');
+Route::post('/welcome-std',[welcomeController::class,'addWelcome'])->name('welcome.add');
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 Route::get('/payment', function () {
     return view('exampleEasyCheckout');
 });
-
+Route::get('/category', function () {
+    return view('category');
+});
 Route::get('/welcomeUsers', function () {
     return view('welcomeUsers');
 });
@@ -48,7 +53,11 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::get('/employee','App\Http\Controllers\EmployeeController@index');
 
-Route::get('/dashboard','App\Http\Controllers\TestCrudController@index')->name('dashboard');
+Route::get('/dashboard','App\Http\Controllers\EmployeeController@index')->name('index');
+Route::get('/dashboard-index','App\Http\Controllers\EmployeeController@indexing')->name('indexing');
+//Route::get('/thana/{id}','App\Http\Controllers\EmployeeController@get_thana')->name('thana');
+//Route::get('/upazila/{id}','App\Http\Controllers\EmployeeController@get_upazila')->name('upazila');
+//Route::get('/helper','App\Http\Controllers\divissionController@get_thana')->name('get_thana');
 Route::middleware(['auth:sanctum', 'verified'])->get('/welcomeUsers', function () {
     $users = User::all();
     return view('welcomeUsers', compact('users'));
@@ -56,11 +65,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/welcomeUsers', function (
 //Route::middleware(['auth:sanctum', 'verified'])->get('/home', function () {
 //    return view('dashboard');
 //})->name('home');
-Route::get('/delete/{id}','App\Http\Controllers\TestCrudController@delete')->name('delete');
-Route::get('/edit/{id}','App\Http\Controllers\TestCrudController@edit')->name('edit');
-Route::post('/update','App\Http\Controllers\TestCrudController@update')->name('update');
+Route::get('/delete/{id}','App\Http\Controllers\EmployeeController@delete')->name('delete');
+Route::get('/edit/{id}','App\Http\Controllers\EmployeeController@edit')->name('edit');
+Route::post('/update','App\Http\Controllers\EmployeeController@update')->name('update');
 Route::get('/district','App\Http\Controllers\HomeController@index');
-Route::post("/addmember",[TestCrudController::class,'add'])->name('add');
+Route::post("/addmember",[EmployeeController::class,'add'])->name('add');
 
 Route::get('/categories','App\Http\Controllers\divissionController@indexing')->name('indexing');
 //Route::get('/helper','App\Http\Controllers\divissionController@get_thana')->name('get_thana');
@@ -68,11 +77,13 @@ Route::get('/thana/{id}','App\Http\Controllers\divissionController@get_thana')->
 Route::get('/upazila/{id}','App\Http\Controllers\divissionController@get_upazila')->name('upazila');
 Route::get('/name/{id}','App\Http\Controllers\divissionController@get_name')->name('name');
 Route::get('/student',[StudentController::class,'record'])->name('student');
+
 Route::post('/add-student',[StudentController::class,'addStudent'])->name('student.add');
 Route::get('/student/{id}',[StudentController::class,'getStudentById']);
 Route::put('/student',[StudentController::class,'updateStudent'])->name('student.update');
 //Route::post('/student/{id}',[StudentController::class,'updateStudent'])->name('student.update');
 Route::delete('student-delete/{id}',[StudentController::class,'deleteStudent'])->name('student-delete');
+//Route::get('/student',[StudentController::class,'operations'])->name('student-sum');
 
 //Route::get('/product', 'ProductController@index');
 //

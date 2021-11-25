@@ -40,15 +40,15 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="{{url('/categories')}}">Categories</a>
-                    <a class="dropdown-item" href="{{route('dashboard')}}">Contact</a>
+
                     <div class="dropdown-divider"></div>
                     {{--                        <a class="dropdown-item" href="#">Something else here</a>--}}
                 </div>
-{{--            </li>--}}
+            {{--            </li>--}}
 
 
-{{--                <a href ="#"class="btn btn-success" data-toggle="modal" data-target="#studentModal">Add new Student</a>--}}
-{{--            </li>--}}
+            {{--                <a href ="#"class="btn btn-success" data-toggle="modal" data-target="#studentModal">Add new Student</a>--}}
+            {{--            </li>--}}
 
         </ul>
         <form class="form-inline my-2 my-lg-0">
@@ -69,10 +69,22 @@
     <div class ="container">
         <div class="row"></div>
         <div class = "col-md-12">
+
             <div class="card">
                 <div class = "card-header">
+
                     <img src="https://img.icons8.com/external-vitaliy-gorbachev-flat-vitaly-gorbachev/50/000000/external-student-female-profession-vitaliy-gorbachev-flat-vitaly-gorbachev.png"/>
-                   <a href ="#" class="btn btn-success add_employee">Add Student</a>
+                    <a href ="#" class="btn btn-success add_employee">Add Student</a>
+
+                    <form action="" class = "col-6">
+                        <div class = "form-group">
+
+                            <input type="text" name = "" id = "" class="form-control" placeholder="Search by Name Or Email" >
+                            <button class="btn btn-danger"> Search</button>
+
+                        </div>
+
+                    </form>
                 </div>
                 <div class="card-body">
                     <table id = "studentTable" class="table">
@@ -177,7 +189,6 @@
         $("#Transitionamount").val('');
         $("#studentModal").modal('show');
     })
-
     function editStudent(id) {
         $('.modal-title').text('Update employee');
         $('.submit_btn').text('Update');

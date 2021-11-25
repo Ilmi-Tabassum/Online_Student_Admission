@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
+
 class StudentController extends Controller
 {
     public function record(){
@@ -49,5 +50,10 @@ class StudentController extends Controller
         $student->delete();
         return response()->json(['success'=>'Record has been deleted']);
     }
+
+//    public function operations(){
+//        $students = Student::  orderBy('id','DESC')->sum('id');
+//        return view('student',compact('students'));
+//    }
 
 }

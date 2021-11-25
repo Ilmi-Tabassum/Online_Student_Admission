@@ -1,15 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="SSLCommerz">
-    <title>Lets Donate</title>
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+@extends('layouts.master')
+@section('content')
+
+{{--<!DOCTYPE html>--}}
+{{--<html lang="en">--}}
+{{--<head>--}}
+{{--    <meta charset="utf-8">--}}
+{{--    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">--}}
+{{--    <meta name="description" content="">--}}
+{{--    <meta name="author" content="SSLCommerz">--}}
+{{--    <title>Lets Donate</title>--}}
+
+{{--    <!-- Bootstrap core CSS -->--}}
+{{--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"--}}
+{{--          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">--}}
 
     <style>
         .bd-placeholder-img {
@@ -28,25 +32,25 @@
         }
     </style>
 </head>
-<body class="bg-light">
-<div class="container">
-    <div class="py-5 text-center">
-        <h2>SSLCommerz</h2>
+{{--<body class="bg-light">--}}
+{{--<div class="container">--}}
+    <div class="py-5">
+        <h2></h2>
 
         <p class="lead">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-
             </div>
-            <h1>Welcome Page</h1>
-            <a href="{{url('/student')}}">Employees</a> |
-            <a href="{{url('/helper')}}">Categories</a> |
-            <a href="{{route('dashboard')}}">Contact</a>
+{{--            </div>--}}
+{{--            <h1>Welcome Page</h1>--}}
+{{--            <a href="{{url('/student')}}">Employees</a> |--}}
+{{--            <a href="{{url('/helper')}}">Categories</a> |--}}
+{{--            <a href="{{route('dashboard')}}">Contact</a>--}}
 
 
-        </div>
-        </p>
-    </div>
+{{--        </div>--}}
+{{--        </p>--}}
+{{--    </div>--}}
 
     <div class="row">
         <div class="col-md-4 order-md-2 mb-4">
@@ -183,7 +187,7 @@
             </form>
         </div>
     </div>
-
+        </div>
     <footer class="my-5 pt-5 text-muted text-center text-small">
         <p class="mb-1">&copy; 2019 Company Name</p>
         <ul class="list-inline">
@@ -226,4 +230,5 @@
         window.addEventListener ? window.addEventListener("load", loader, false) : window.attachEvent("onload", loader);
     })(window, document);
 </script>
+@endsection
 </html>
