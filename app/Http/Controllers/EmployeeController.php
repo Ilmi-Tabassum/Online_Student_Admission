@@ -16,20 +16,41 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+//    public function index()
+//    {
+////        $test = DB::select(DB::raw("
+////            SELECT *
+////            FROM test"));
+//
+//        $divission = \DB::table('divission')->get();
+////
+//        $sum =DB::table('divission')->get()
+////
+//        -> JOIN ('test','test.divission_id','=', 'divission.id')
+//         ->JOIN('upazila', 'test.upazila_id','=','upazila.id')
+//            ->JOIN('thana', 'test.thana_id','=','thana.id')
+//         ->get();
+//
+//
+//        return view('dashboard')->with(["test" => $sum,"divission" => $divission]);
+//
+//    }
     public function index()
     {
-        $test = DB::select(DB::raw("
-            SELECT *
-            FROM test"));
+//        $test = DB::select(DB::raw("
+//            SELECT *
+//            FROM test"));
         $divission = \DB::table('divission')->get();
-        $users =DB::table('test')->
-        leftjoin('divission','test.divission_id',"=", "test.divission_id")
+        $test =DB::table('divission')->
+      join('test','test.divission_id','=', 'divission.id')
+           -> join('upazila','test.upazila_id','=','upazila.id')
+            ->JOIN('thana', 'test.thana_id','=','thana.id')
             ->get();
-
-//        print_r($users);
-        return view('dashboard')->with(["test" => $test,"divission" => $divission]);
+        return view('dashboard')->with(["test" =>$test,"divission" => $divission]);
 
     }
+
+    /**
 
     /**
      * Show the form for creating a new resource.
@@ -84,7 +105,7 @@ class EmployeeController extends Controller
 
         $sql = "update test set designation = '$req->designation' where id = '$req->id'";
         DB::statement($sql);
-        return redirect('dashboard');
+        return redirect('/dashboard');
     }
 
 
@@ -95,14 +116,6 @@ class EmployeeController extends Controller
         return back();
     }
 
-
-    public function indexing()
-    {
-        $divission = \DB::table('divission')->get();
-
-        return view('dashboard-index', compact('divission'));
-//        return view('dashboard')->with(["divission" => $divission]);
-    }
 
     public function get_thana($id)
     {
@@ -125,16 +138,7 @@ class EmployeeController extends Controller
 
     }
 
-    public function get_name($id)
-    {
 
-        $name = \DB::table('name')->where('name_id', $id)->get();
-        /*  print_r(upazila);
-            exit();*/
-
-        return $name;
-
-    }
 
 
 

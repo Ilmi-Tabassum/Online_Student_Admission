@@ -78,17 +78,6 @@
 
                         </select>
                     </div>
-                    <br>
-                    <br>
-                    <br>
-                    <div class="form-group">
-                        <label for="title">Select Name:</label>
-
-                        <select  name="name" class="form-control name" id="names" style="width:350px" >
-                            <option value="" selected disabled>Select</option>
-
-                        </select>
-                    </div>
                 </div>
             </div>
 
@@ -122,15 +111,16 @@
                     <?php
                     $table_option = "";
                     foreach ($test as $key => $value) {
+//dd($value);
                         $table_option .= "<tr>";
                         $table_option .= "<td>$value->id</td>";
                         $table_option .= "<td>$value->name</td>";
                         $table_option .= "<td>$value->email</td>";
                         $table_option .= "<td>$value->emp</td>";
                         $table_option .= "<td>$value->designation</td>";
-                        $table_option .= "<td>$value->divission_id</td>";
-                        $table_option .= "<td>$value->thana_id</td>";
-                        $table_option .= "<td>$value->upazila_id</td>";
+                        $table_option .= "<td>$value->title</td>";
+                        $table_option .= "<td>$value->titlethana</td>";
+                        $table_option .= "<td>$value->upazila_name</td>";
 //
                         $table_option .= "<td><a href='". route('edit', $value->id) ."'>Edit</a>
                      <a href='". route('delete', $value->id) ."'>Delete</a></td>";
@@ -168,7 +158,7 @@
                         // alert(result);
                         //console.log(result);
                         results.forEach(function(result) {
-                            document.getElementById("th").innerHTML += "<option value="+result.id+">" + result.title + "</option>"
+                            document.getElementById("th").innerHTML += "<option value="+result.id+">" + result.titlethana + "</option>"
                             /*
                                                 $(".thana").html( <option value=result.id> result.title</option>);
                             */

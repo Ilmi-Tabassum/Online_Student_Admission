@@ -44,17 +44,14 @@
                     <div class="dropdown-divider"></div>
                     {{--                        <a class="dropdown-item" href="#">Something else here</a>--}}
                 </div>
-            {{--            </li>--}}
-
-
-            {{--                <a href ="#"class="btn btn-success" data-toggle="modal" data-target="#studentModal">Add new Student</a>--}}
-            {{--            </li>--}}
-
+            <li class="nav-item">
+                <a class="dropdown-item" href="{{url('/product')}}">Products Purchase</a>
+            </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
             {{--                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">--}}
             {{--                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>--}}
-            <button class="text-white bg-dark"><a href="{{url('/')}}">Home  | </a></button>
+            <button class="text-white bg-dark"><a href="{{url('/studentInformation')}}">Home  | </a></button>
             <button class="text-white bg-dark"><a href="{{url('/student')}}">My Students</a></button>
 
 

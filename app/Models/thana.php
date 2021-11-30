@@ -14,5 +14,5 @@ class thana extends Model
     /**
      * @var array
      */
-    protected $fillable = ['country_id','title'];
+    protected $fillable = ['country_id','titlethana'];
 }
